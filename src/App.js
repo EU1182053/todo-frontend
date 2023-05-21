@@ -14,19 +14,19 @@ const App = () => {
   useEffect(() => {
 
 
-    return () => {
-      // fetchTodos();
-    }
+
+      fetchTodos();
+    
   }, [])
 
 
 
   const fetchTodos = async () => {
     try {
-      await fetch('https://fakestoreapi.com/products').then(async (response) => {
+      await fetch('http://localhost:5000/').then(async (response) => {
         const data = await response.json();
-        console.log(data)
-        setTodos(data)
+        console.log(data.todos)
+        setTodos(data.todos)
       }).catch(e => { throw e })
      
 
@@ -109,9 +109,9 @@ const App = () => {
   // sort feature
   const handleSortClick = async () => {
     try {
-      const response = await fetch('http://localhost:5000/todos/sorted');
+      const response = await fetch('http://localhost:5000/sorted');
       const data = await response.json();
-      setTodos(data);
+      setTodos(data.todos);
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
@@ -133,6 +133,7 @@ const App = () => {
         type='checkbox'
         id='completedCheckbox'
       />
+      <h3>Completed ? Yes or No</h3>
       <button className="add-button" onClick={createTodo}>
         Add
       </button>
